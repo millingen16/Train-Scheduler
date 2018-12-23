@@ -1,0 +1,19 @@
+body {
+    background-image: url("")
+}
+
+.jumbotron {
+    background-color: orange;
+    color: white;
+    border: 1px;
+    border-color: black;
+}
+
+.panel-heading {
+    
+    
+}
+
+.panel-body {
+
+}
