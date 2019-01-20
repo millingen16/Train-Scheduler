@@ -4,49 +4,56 @@ $(document).on ("click", function() {
 console.log("test");
 
 var config = {
-  apiKey: "AIzaSyBZvxogMVgsDsCW1136rCVLhFnLsmxJj3s",
-  authDomain: "myfirstproject-ff297.firebaseapp.com",
-  databaseURL: "https://myfirstproject-ff297.firebaseio.com",
-  projectId: "myfirstproject-ff297",
-  storageBucket: "myfirstproject-ff297.appspot.com",
-  messagingSenderId: "601292464722"
+  apiKey: "AIzaSyAsj5Lfq_TNWhM6L_e9LGIa-0sk6XJQcaE",
+  authDomain: "train-scheduler-2f34c.firebaseapp.com",
+  databaseURL: "https://train-scheduler-2f34c.firebaseio.com",
+  projectId: "train-scheduler-2f34c",
+  storageBucket: "train-scheduler-2f34c.appspot.com",
+  messagingSenderId: "500439050203"
 };
-  firebase.initializeApp(config);
+firebase.initializeApp(config);
+console.log(firebase);
   var database = firebase.database();
+  // Line 18 was added 1/19/19
+  var ref = database.ref("Train");
   $("#submit-button").on("click", function(event) {
       event.prevntDefault();
+      console.log("test");
 // Line 16  (Uncaught error for the value for trim()).
-  var nameOfTrain = $("#name-train").val().trim();
-  var trainDestination = $("#train-destination").val().trim();
-  var trainTime = moment($("#train-time").val().trim(), "HH:mm").format();
-  var trainFrequency = $("#train-frequency").val().trim();
+  var nameOfTrain = $("#name-train-input").val().trim();
+  var trainDestination = $("#train-destination-input").val().trim();
+  var trainTime = moment($("#train-time-input").val().trim(), "HH:mm").format();
+  var trainFrequency = $("#train-frequency-input").val().trim();
   var newTrain = {
-      name: trainName,
+      name: nameOfTrain,
       destination: trainDestination,
       time: trainTime,
       frequency: trainFrequency,
 
   };
+  ref.push(newTrain);
   
-  database.ref("data/user").push(newTrain);
+  // database.ref().push(newTrain);
 // Nothing log at line 30.
   console.log(newTrain.destination);
 
-  $("#name-train").val("");
-  $("#train- destination").val("");
-  $("#train-time").val("");
-  $("#train-frequency").val("");
+  $("#name-train-input").val("");
+  $("#train- destination-input").val("");
+  $("#train-time-input").val("");
+  $("#train-frequency-input").val("");
 
 });
 // Test #2 logged in the console.
 console.log("test2");
 
-database.ref().orderByChild("dateAdded").on("child_added", function(childSnapshot) {
+// .orderByChild("dateAdded")--- this piece of code get added after .ref()
+
+database.ref().on("child_added", function(childSnapshot) {
   console.log(childSnapshot.val());
 
   var nameOfTrain = childSnapshot.val().name;
   var trainDestination = childSnapshot.val().destination;
-  var traintime = childSnapshot.val().time;
+  var trainTime = childSnapshot.val().time;
   var trainFrequency =childSnapshot.val().frequency;
   
   console.log(nameOfTrain);
@@ -71,7 +78,7 @@ database.ref().orderByChild("dateAdded").on("child_added", function(childSnapsho
      $("<td>").text(minutesAway),
     );
 
-    $("#table-input > tbody").append(addedRow);
+    $("#train-table > tbody").append(addedRow);
   
 
   console.log("test3");
