@@ -15,7 +15,7 @@ firebase.initializeApp(config);
 console.log(firebase);
   var database = firebase.database();
   // Line 18 was added 1/19/19
-  var ref = database.ref("Train");
+  // var ref = database.ref("Train");
   $("#submit-button").on("click", function(event) {
       event.prevntDefault();
       console.log("test");
@@ -29,9 +29,10 @@ console.log(firebase);
       destination: trainDestination,
       time: trainTime,
       frequency: trainFrequency,
+      database: firebase.database.ServerValue.TIMESTAMP
 
   };
-  ref.push(newTrain);
+  database.ref().push(newTrain);
   
   // database.ref().push(newTrain);
 // Nothing log at line 30.
@@ -74,11 +75,13 @@ database.ref().on("child_added", function(childSnapshot) {
     $("<td>").text(nameOfTrain),
     $("<td>").text(trainDestination),
     $("<td>").text(trainFrequency),
-     $("<td>").text(nextArrival),
-     $("<td>").text(minutesAway),
-    );
+    $("<td>").text(nextArrival),
+    $("<td>").text(minutesAway),
+    
+  );
 
-    $("#train-table > tbody").append(addedRow);
+
+    $("#train-table").append(addedRow);
   
 
   console.log("test3");
