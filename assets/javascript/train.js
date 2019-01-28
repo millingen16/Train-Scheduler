@@ -1,4 +1,4 @@
-$(document).on ("click", function() {
+$(document).ready(function() {
 
 
 console.log("test");
@@ -17,13 +17,13 @@ console.log(firebase);
   // Line 18 was added 1/19/19
   // var ref = database.ref("Train");
   $("#submit-button").on("click", function(event) {
-      event.prevntDefault();
+      event.preventDefault();
       console.log("test");
 // Line 16  (Uncaught error for the value for trim()).
-  var nameOfTrain = $("#name-train-input").val().trim();
-  var trainDestination = $("#train-destination-input").val().trim();
-  var trainTime = moment($("#train-time-input").val().trim(), "HH:mm").format();
-  var trainFrequency = $("#train-frequency-input").val().trim();
+  var nameOfTrain = $("#name-train").val().trim();
+  var trainDestination = $("#train-destination").val().trim();
+  var trainTime = moment($("#train-time").val().trim(), "HH:mm").format();
+  var trainFrequency = $("#train-frequency").val().trim();
   var newTrain = {
       name: nameOfTrain,
       destination: trainDestination,
@@ -38,10 +38,10 @@ console.log(firebase);
 // Nothing log at line 30.
   console.log(newTrain.destination);
 
-  $("#name-train-input").val("");
-  $("#train- destination-input").val("");
-  $("#train-time-input").val("");
-  $("#train-frequency-input").val("");
+  $("#name-train").val("");
+  $("#train- destination").val("");
+  $("#train-time").val("");
+  $("#train-frequency").val("");
 
 });
 // Test #2 logged in the console.
@@ -55,7 +55,7 @@ database.ref().on("child_added", function(childSnapshot) {
   var nameOfTrain = childSnapshot.val().name;
   var trainDestination = childSnapshot.val().destination;
   var trainTime = childSnapshot.val().time;
-  var trainFrequency =childSnapshot.val().frequency;
+  var trainFrequency = childSnapshot.val().frequency;
   
   console.log(nameOfTrain);
 // Moment.js 
@@ -86,5 +86,6 @@ database.ref().on("child_added", function(childSnapshot) {
 
   console.log("test3");
 })
+// $(document).on ("click", function() {
 
 });
